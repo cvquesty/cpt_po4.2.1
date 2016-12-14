@@ -15,11 +15,27 @@ rm -fr /var/cache/yum/*
 /usr/bin/systemctl start puppetserver
 /usr/bin/systemctl enable puppetserver
 
-# Install Zack's r10k module
-/opt/puppetlabs/puppet/bin/puppet module install 'zack-r10k'
-
 # Install Git
 /usr/bin/yum -y install git
+
+# Configure the Puppet Master
+cat > /var/tmp/configure_puppet_master.pp << EOF
+  #####                            #####
+  ## Configure Directory Environments ##
+  #####                            #####
+
+ini_setting { 'Master Agent Server':
+  section => 'agent',
+  setting => 'server',
+  value   => 'master.puppet.vm',
+}
+
+ini_setting { 'Master Agent Certname':
+  section  => 'agent',
+  setting  => 'certname',
+  value    => 'master.puppet.vm',
+}
+EOF
 
 # Install and Configure PuppetDB
 /opt/puppetlabs/puppet/bin/puppet module install puppetlabs-puppetdb
@@ -97,6 +113,9 @@ EOF
 
 # Initial r10k Deploy
 /usr/bin/r10k deploy environment -pv
+
+# Bounce the network to trade out the Virtualbox IP
+/usr/bin/systemctl restart network
 
 # Do initial Puppet Run
   /opt/puppetlabs/puppet/bin/puppet agent -t
