@@ -94,6 +94,9 @@ ini_setting { 'Master Agent Certname':
 }
 EOF
 
+# Install Zack-r10k to configure r10k
+/opt/puppetlabs/puppet/bin/puppet module install zack-r10k
+
 # Now Apply Subsystem Configurations
 /opt/puppetlabs/puppet/bin/puppet apply /var/tmp/configure_r10k.pp
 /opt/puppetlabs/puppet/bin/puppet apply /var/tmp/configure_directory_environments.pp
