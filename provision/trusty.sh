@@ -4,11 +4,10 @@
 /usr/sbin/ufw disable
 
 # Install Puppet Labs Official Repository for Apt based Systems
-/usr/bin/wget https://apt.puppetlabs.com/puppetlabs-release-pc1-trusty.deb /tmp/puppetlabs-release-pc1-trusty.deb
-sudo dpkg -i puppetlabs-release-pc1-trusty.deb
-
-
-/usr/bin/apt-get -qq update
+/usr/bin/curl -o /tmp/puppetlabs-release-pc1-trusty.deb https://apt.puppetlabs.com/puppetlabs-release-pc1-trusty.deb
+/usr/bin/dpkg -i /tmp/puppetlabs-release-pc1-trusty.deb
+/usr/bin/apt-get update
+/usr/bin/apt-get install puppet-agent
 /usr/bin/apt-get install git-core
 /usr/bin/apt-get -y install python-software-properties
 /usr/bin/add-apt-repository -y ppa:raphink/augeas-1.2.0
