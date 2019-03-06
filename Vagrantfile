@@ -9,7 +9,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 ######################
   # Define the Master VM Characteristics
   config.vm.define 'master' do |master|
-    master.vm.box = 'puppetlabs/centos-7.2-64-nocm'
+    master.vm.box = 'centos/7'
     master.vm.network :private_network, :ip => '10.10.100.100'
     master.vm.network "forwarded_port", guest: 443, host: 8443
     master.vm.hostname = 'master.puppet.vm'
@@ -38,7 +38,7 @@ end
 ###############
   # Define the CentOS VM Characteristics
   config.vm.define 'centos' do |centos|
-    centos.vm.box = 'puppetlabs/centos-7.2-64-nocm'
+    centos.vm.box = 'centos/7'
     centos.vm.network :private_network, :ip => '10.10.100.111'
     centos.vm.hostname = 'centos.puppet.vm'
 
@@ -66,7 +66,7 @@ end
 #######################
   # Define the Ubuntu VM Characteristics
   config.vm.define 'precise' do |precise|
-    precise.vm.box = 'puppetlabs/ubuntu-12.04-64-nocm'
+    precise.vm.box = 'ubuntu/precise64'
     precise.vm.network :private_network, :ip => '10.10.100.112'
     precise.vm.hostname = 'precise.puppet.vm'
 
@@ -94,7 +94,7 @@ end
 ######################
   # Define the Ubuntu VM Characteristics
   config.vm.define 'trusty' do |trusty|
-    trusty.vm.box = 'puppetlabs/ubuntu-14.04-64-nocm'
+    trusty.vm.box = 'ubuntu/trusty64'
     trusty.vm.network :private_network, :ip => '10.10.100.113'
     trusty.vm.hostname = 'trusty.puppet.vm'
 
