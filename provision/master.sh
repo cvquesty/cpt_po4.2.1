@@ -103,7 +103,7 @@ EOF
 
 # Configure Hiera
 /opt/puppetlabs/puppet/bin/puppet module install puppet-hiera
-/opt/puppetlabs/puppet/bin/puppet apply -e "class { 'hiera': hiera_version => '5', hiera5_defaults => {"datadir" => "data", "data_hash" => "yaml_data"}, hierarchy => [ {"name" => "Virtual yaml", "path" => "virtual/%{::virtual}.yaml"}, {"name" => "Nodes yaml", "paths" => ['nodes/%{::trusted.certname}.yaml', 'nodes/%{::osfamily}.yaml']}, {"name" => "Default yaml file", "path" => "common.yaml"}, ], }" || true
+/opt/puppetlabs/puppet/bin/puppet apply -e "class { 'hiera': hiera_version => '5', hiera5_defaults => { 'datadir' => 'data', 'data_hash' => 'yaml_data', }, hierarchy => [ { 'name' => 'Virtual yaml', 'path' => 'virtual/%{::virtual}.yaml' }, { 'name' => 'Nodes yaml', 'paths' => [ 'nodes/%{::trusted.certname}.yaml', 'nodes/%{::osfamily}.yaml']}, { 'name' => 'Default yaml file', 'path' => 'common.yaml', }, ], }" || true
 
 # Install and Configure autosign.conf for agents
 cat > /etc/puppetlabs/puppet/autosign.conf << 'EOF'
